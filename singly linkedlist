@@ -1,0 +1,98 @@
+#include <stdio.h>
+typedef struct nodes
+{
+  int data;
+  struct nodes *next;
+}node;
+struct nodes *head = NULL;
+node *create()
+{
+  node *nn;
+  nn = (node*) malloc (sizeof (node));
+  static int i = 5;
+  nn->data = i;
+  nn->next = NULL;
+  i++;
+  return nn;
+}
+void insrtbeg()
+{
+  node *nn;
+  nn = create();
+  if (head == NULL)
+    head = nn;
+  else
+    nn->next = head;
+    head = nn;
+}
+void insertend()
+{
+  node *nn, *temp;
+  nn = create();
+  temp = head;
+  while (temp->next != NULL)
+  {
+    temp = temp->next;
+  }
+  temp->next = nn;
+}
+void insertloc()
+{
+  node *nn ,*temp;
+  nn = create();
+  int loc;
+  printf("Enter the location");
+      scanf("%d", &loc);
+  temp = head;
+  for (int j = 1; j < loc - 1; j++)
+  {
+    temp = temp->next;
+  }
+  nn->next = temp->next;
+  temp->next = nn;
+}
+void traverse()
+{
+  node *temp;
+  temp = head;
+  while (temp != NULL)
+  {
+    printf("%d-->", temp->data);
+    temp = temp->next;
+  }
+}
+int main()
+{
+  int choice;
+  while (1)
+  {
+    printf("\n\t1 To see list\n");
+    printf("\t2 For insertion at"
+           " starting\n");
+    printf("\t3 For insertion at"
+           " end\n");
+    printf("\t4 For insertion at "
+           "any position\n");
+    scanf("%d", &choice);
+
+    switch (choice)
+    {
+    case 1:
+      traverse();
+      break;
+      case 2:
+      insrtbeg();
+      break;
+    case 3:
+      insertend();
+      break;
+    case 4:
+      insertloc();
+      break;
+
+    default:
+      printf("Incorrect Choice\n");
+    }
+  }
+  return 0;
+}
